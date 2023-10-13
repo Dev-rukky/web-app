@@ -8,38 +8,35 @@ const app = initializeApp(appSettings);
 const database = getDatabase(app);
 const shoppingListDB = ref(database, "shoppingList");
 
-const shoppingListEl = document.getElementById("shopping-list")
 const inputFieldEl = document.getElementById("input-field");
+const shoppingListEl = document.getElementById("shopping-list");
 const addButtonEl = document.getElementById("add-button");
 
 addButtonEl.addEventListener("click", () => {
-    let inputValue = inputFieldEl.value;
+   const inputValue = inputFieldEl.value;
 
-    push(shoppingListDB, inputValue)
+    push(shoppingListDB, inputValue);
 
-    clearInputFieldEl()
+    clearInputFieldEl();
 });
 
 onValue(shoppingListDB, (snapshot) => {
-    const itemsArray = Object.values(snapshot.val())
+    const itemsArray = Object.values(snapshot.val());
     
-
+     clearShoppingListEl();
     for (let i = 0; i < itemsArray.length; i++) {
-        appendItemToShoppingListEl(itemsArray[i])
+        appendItemToShoppingListEl(itemsArray[i]);
     }
-    clearShoppingListDB()
 });
 
-
 const clearInputFieldEl = () => {
-    inputFieldEl.value = ""
+    inputFieldEl.value = "";
 };
 
 const appendItemToShoppingListEl = (itemValue) => {
-    shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+    shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
 };
 
-
-const clearShoppingListDB = () => {
-    shoppingListEl.innerHTML = ""
-}
+const clearShoppingListEl = () => {
+    shoppingListEl.innerHTML = "";
+};
