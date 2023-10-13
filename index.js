@@ -21,11 +21,14 @@ addButtonEl.addEventListener("click", () => {
 });
 
 onValue(shoppingListDB, (snapshot) => {
-    const itemsArray = Object.values(snapshot.val());
+    const itemsArray = Object.entries(snapshot.val());
     
      clearShoppingListEl();
     for (let i = 0; i < itemsArray.length; i++) {
-        appendItemToShoppingListEl(itemsArray[i]);
+        let currentItem = itemsArray[i]
+        let currentItemID = currentItem[0]
+        let currentItemValue = currentItemID
+        appendItemToShoppingListEl(currentItem);
     }
 });
 
@@ -33,8 +36,14 @@ const clearInputFieldEl = () => {
     inputFieldEl.value = "";
 };
 
-const appendItemToShoppingListEl = (itemValue) => {
-    shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
+const appendItemToShoppingListEl = (item) => {
+    let itemID = item[0]
+    let itemValue = item[1]
+    let newEl = document.createElement("li")
+    newEl.textContent = itemValue
+
+    shoppingListEl.append(newEl)
+  
 };
 
 const clearShoppingListEl = () => {
